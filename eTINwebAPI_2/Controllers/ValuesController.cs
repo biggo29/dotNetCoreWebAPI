@@ -14,7 +14,7 @@ namespace eTINwebAPI_2.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "Welocme 2", "eTINwebAPI_2" };
         }
 
         // GET api/values/5

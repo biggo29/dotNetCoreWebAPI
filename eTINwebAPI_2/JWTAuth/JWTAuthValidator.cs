@@ -66,7 +66,7 @@ public class JWTAuthValidator : ISecurityTokenValidator
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = _configuration["Jwt:Issuer"],//"NBR",
-                    ValidAudience = "eTINwebAPI",
+                    ValidAudience = "eTINwebAPI_2",
                     IssuerSigningKey = symmetricSecurityKey
                 }
                 , out validatedToken);

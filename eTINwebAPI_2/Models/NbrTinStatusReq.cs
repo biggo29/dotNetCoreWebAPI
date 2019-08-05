@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace eTINwebAPI_2.Models
 {
-    public partial class NbrTinInfo
+    public partial class NbrTinStatusReq
     {
-        public NbrTinInfo()
+        public NbrTinStatusReq()
         {
-            NbrAddrInfo = new HashSet<NbrAddrInfo>();
-            NbrAdtBusi = new HashSet<NbrAdtBusi>();
-            NbrContactHistory = new HashSet<NbrContactHistory>();
-            NbrEcHistory = new HashSet<NbrEcHistory>();
-            NbrInfoEditRequest = new HashSet<NbrInfoEditRequest>();
-            NbrInfoUpdate = new HashSet<NbrInfoUpdate>();
-            NbrJurisdictionTransfer = new HashSet<NbrJurisdictionTransfer>();
-            NbrRjscMasterHis = new HashSet<NbrRjscMasterHis>();
-            NbrTinAttachment = new HashSet<NbrTinAttachment>();
-            NbrTinBusinessInfo = new HashSet<NbrTinBusinessInfo>();
-            NbrTinInfoHis = new HashSet<NbrTinInfoHis>();
-            NbrTinStatusReq = new HashSet<NbrTinStatusReq>();
-            NbrTinUpload = new HashSet<NbrTinUpload>();
-            NbrTokenHistory = new HashSet<NbrTokenHistory>();
-            NbrUsersClaim = new HashSet<NbrUsersClaim>();
-            NbrVatInfo = new HashSet<NbrVatInfo>();
+            NbrAddrReq = new HashSet<NbrAddrReq>();
+            NbrTinBusiReq = new HashSet<NbrTinBusiReq>();
+            NbrVatReq = new HashSet<NbrVatReq>();
         }
 
+        public long ReqNo { get; set; }
         public long TinInfoNo { get; set; }
         public long? UserNo { get; set; }
         public long RegTypeNo { get; set; }
@@ -124,55 +114,31 @@ namespace eTINwebAPI_2.Models
         public long? PassportTypeNum { get; set; }
         public bool? IsInvalid { get; set; }
         public long? PrevRegTypeNo { get; set; }
-        public bool? IsStatusChange { get; set; }
-        public bool? IsUserChange { get; set; }
-        public long? PrevUserNo { get; set; }
-        public bool? IsTokenApproved { get; set; }
+        public string AttachName { get; set; }
+        public byte[] AttachData { get; set; }
+        public string AttachExt { get; set; }
+        public bool? IsImported { get; set; }
+        public long? ReqUserNo { get; set; }
+        public long? ReqLogonNo { get; set; }
+        public DateTime? ReqTime { get; set; }
+        public bool? ApproveStatusNum { get; set; }
         public long? ApproveUserNo { get; set; }
-        public long? ApproveLogonHisNo { get; set; }
-        public DateTime? TokenApproveDate { get; set; }
-        public long? ApproveRejectReasonNo { get; set; }
-        public string ApproveRejectComments { get; set; }
-        public DateTime? CertificateUpdateDate { get; set; }
-        public string RjscToken { get; set; }
+        public long? ApproveLogonNo { get; set; }
+        public DateTime? ApproveTime { get; set; }
+        public string ApproveComments { get; set; }
+        public long? StatusReasonNo { get; set; }
         public string SmartId { get; set; }
         public bool? IsSmartApply { get; set; }
-        public int? EcReconTry { get; set; }
-        public string Nid13 { get; set; }
-        public bool? IsDup { get; set; }
-        public decimal? PermitAuthorityId { get; set; }
-        public string ContactTelephoneSub { get; set; }
 
-        public GenBloodGroup BloodGroupNoNavigation { get; set; }
-        public GenCircleInfo CircleNoNavigation { get; set; }
-        public GenContactUpdateReason ContactUpdateReasonNoNavigation { get; set; }
         public GenCountry CountNoNavigation { get; set; }
         public GenDesigList DesigNoNavigation { get; set; }
-        public GenDistrict DistNoNavigation { get; set; }
-        public GenJuriSelectList JuriSelectListNoNavigation { get; set; }
-        public GenJuriSelectType JuriSelectTypeNoNavigation { get; set; }
-        public GenJuriSubList JuriSubListNoNavigation { get; set; }
-        public GenJurisdictionType JuriTypeNoNavigation { get; set; }
-        public GenWorkPermitAuthorityList PermitAuthority { get; set; }
-        public GenRegJuriType RegJuriTypeNoNavigation { get; set; }
         public GenRegType RegTypeNoNavigation { get; set; }
-        public GenTokenRejectReason TokenRejectReasonNoNavigation { get; set; }
-        public NbrUsers UserNoNavigation { get; set; }
-        public ICollection<NbrAddrInfo> NbrAddrInfo { get; set; }
-        public ICollection<NbrAdtBusi> NbrAdtBusi { get; set; }
-        public ICollection<NbrContactHistory> NbrContactHistory { get; set; }
-        public ICollection<NbrEcHistory> NbrEcHistory { get; set; }
-        public ICollection<NbrInfoEditRequest> NbrInfoEditRequest { get; set; }
-        public ICollection<NbrInfoUpdate> NbrInfoUpdate { get; set; }
-        public ICollection<NbrJurisdictionTransfer> NbrJurisdictionTransfer { get; set; }
-        public ICollection<NbrRjscMasterHis> NbrRjscMasterHis { get; set; }
-        public ICollection<NbrTinAttachment> NbrTinAttachment { get; set; }
-        public ICollection<NbrTinBusinessInfo> NbrTinBusinessInfo { get; set; }
-        public ICollection<NbrTinInfoHis> NbrTinInfoHis { get; set; }
-        public ICollection<NbrTinStatusReq> NbrTinStatusReq { get; set; }
-        public ICollection<NbrTinUpload> NbrTinUpload { get; set; }
-        public ICollection<NbrTokenHistory> NbrTokenHistory { get; set; }
-        public ICollection<NbrUsersClaim> NbrUsersClaim { get; set; }
-        public ICollection<NbrVatInfo> NbrVatInfo { get; set; }
+        public NbrTinStatusReq ReqNoNavigation { get; set; }
+        public GenStatusReason StatusReasonNoNavigation { get; set; }
+        public NbrTinInfo TinInfoNoNavigation { get; set; }
+        public NbrTinStatusReq InverseReqNoNavigation { get; set; }
+        public ICollection<NbrAddrReq> NbrAddrReq { get; set; }
+        public ICollection<NbrTinBusiReq> NbrTinBusiReq { get; set; }
+        public ICollection<NbrVatReq> NbrVatReq { get; set; }
     }
 }

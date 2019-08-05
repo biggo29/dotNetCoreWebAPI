@@ -8,14 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using eTINwebAPI_2.Models;
 using eTINwebAPI_2.BusinessLayer;
 using eTINwebAPI_2.Responses;
+using Microsoft.Extensions.Configuration;
+using eTINwebAPI_2.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eTINwebAPI_2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "USER_BIDA")]
     public class TinInfoController : ControllerBase
     {
-        private readonly eTINtestContext _context;
+        //private readonly eTINtestContext _context;
 
         //public TinInfoController(eTINtestContext context)
         //{
@@ -42,8 +46,16 @@ namespace eTINwebAPI_2.Controllers
 
         //    return nbrTinInfo;
         //}
+        public static string sda = "DFS";
+        readonly IConfiguration _configuration;
+        Utility _utility;
+        public TinInfoController(IConfiguration configuration, Utility utility)
+        {
+            _configuration = configuration;
+            _utility = utility;
+        }
 
-        [HttpGet("TIN/{tin}")]
+        [HttpGet, Route("TIN/{tin}")]
         public ActionResult GetTin(string tin)
         {
             TINBL tINBL = new TINBL();
