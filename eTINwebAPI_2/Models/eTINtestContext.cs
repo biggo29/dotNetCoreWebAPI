@@ -128,7 +128,7 @@ namespace eTINwebAPI_2.Models
         public virtual DbSet<TrnTinLog> TrnTinLog { get; set; }
         public virtual DbSet<WsRequestDetail> WsRequestDetail { get; set; }
         public virtual DbSet<WsRequestMaster> WsRequestMaster { get; set; }
-        public virtual DbSet<TinInfoTracker> TinInfoTracker { get; set; }
+        public virtual DbSet<NbrWebApiTinValidationTracker> NbrWebApiTinValidationTracker { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -6578,11 +6578,11 @@ namespace eTINwebAPI_2.Models
                 entity.Property(e => e.UserNo).HasColumnName("USER_NO");
             });
 
-            modelBuilder.Entity<TinInfoTracker>(entity =>
+            modelBuilder.Entity<NbrWebApiTinValidationTracker>(entity =>
             {
                 entity.HasKey(e => e.TrackerId);
 
-                entity.ToTable("TIN_INFO_TRACKER");
+                entity.ToTable("NBR_WEB_API_TIN_VALIDATION_TRACKER");
 
                 entity.Property(e => e.TrackerId).HasColumnName("TRACKER_ID");
 
@@ -6611,6 +6611,17 @@ namespace eTINwebAPI_2.Models
                 entity.Property(e => e.Nid)
                     .HasColumnName("NID")
                     .HasMaxLength(200);
+
+                entity.Property(e => e.PassportNumber)
+                    .HasColumnName("PASSPORT_NUMBER")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.AuthId)
+                    .HasColumnName("AUTH_ID");
+
+                entity.Property(e => e.InsertTime)
+                    .HasColumnName("INSERT_TIME")
+                    .HasColumnType("datetime");
             });
         }
     }

@@ -79,9 +79,15 @@ namespace eTINwebAPI_2.Controllers
                             if(userInfoObject != null)
                             {
                                 //set TIN_INFO_TRACKER
-                                TinInfoTracker infoTracker = TokenTrackerBL.SetTokenHistory(tinInfoObject, _utility, userInfoObject, db);
-                                db.TinInfoTracker.Add(infoTracker);
-                                db.SaveChanges();
+                                NbrWebApiTinValidationTracker infoTracker = TokenTrackerBL.SetTokenHistory(tinInfoObject, _utility, userInfoObject, db);
+                                try
+                                {
+                                    db.NbrWebApiTinValidationTracker.Add(infoTracker);
+                                    db.SaveChanges();
+                                }catch(Exception ex)
+                                {
+                                    Console.WriteLine(ex);
+                                }  
                             }
                         scope.Complete();
                         var info = new
