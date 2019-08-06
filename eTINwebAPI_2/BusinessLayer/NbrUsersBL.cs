@@ -100,6 +100,22 @@ namespace eTINwebAPI_2.BusinessLayer
             return nbrUser;
         }
 
+        public NbrUsers GetUserInfo(long tinInfoNo)
+        {
+            using (var db = new eTINtestContext())
+            {
+                try
+                {
+                    var userInfo = db.NbrUsers.Where(a => a.TinInfoNo == tinInfoNo).FirstOrDefault();
+                    return userInfo;
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         private static string generateLogonName(string name)
         {
             string tempLogonName = name.Trim().ToLower().Replace(" ", "_");

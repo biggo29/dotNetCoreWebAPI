@@ -128,6 +128,7 @@ namespace eTINwebAPI_2.Models
         public virtual DbSet<TrnTinLog> TrnTinLog { get; set; }
         public virtual DbSet<WsRequestDetail> WsRequestDetail { get; set; }
         public virtual DbSet<WsRequestMaster> WsRequestMaster { get; set; }
+        public virtual DbSet<TinInfoTracker> TinInfoTracker { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -6575,6 +6576,41 @@ namespace eTINwebAPI_2.Models
                     .HasMaxLength(500);
 
                 entity.Property(e => e.UserNo).HasColumnName("USER_NO");
+            });
+
+            modelBuilder.Entity<TinInfoTracker>(entity =>
+            {
+                entity.HasKey(e => e.TrackerId);
+
+                entity.ToTable("TIN_INFO_TRACKER");
+
+                entity.Property(e => e.TrackerId).HasColumnName("TRACKER_ID");
+
+                entity.Property(e => e.NewTin)
+                    .HasColumnName("NEW_TIN")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.UserNo)
+                    .HasColumnName("USER_NO");
+
+                entity.Property(e => e.AssesName)
+                    .HasColumnName("ASSES_NAME")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Mobile)
+                    .HasColumnName("MOBILE")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.IpAddr)
+                    .HasColumnName("IP_ADDR")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.CircleNo)
+                    .HasColumnName("CIRCLE_NO");
+
+                entity.Property(e => e.Nid)
+                    .HasColumnName("NID")
+                    .HasMaxLength(200);
             });
         }
     }

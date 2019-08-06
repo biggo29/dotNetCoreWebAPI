@@ -11,6 +11,8 @@ using eTINwebAPI_2.Responses;
 using Microsoft.Extensions.Configuration;
 using eTINwebAPI_2.Helper;
 using Microsoft.AspNetCore.Authorization;
+using System.Transactions;
+using System.Data.SqlClient;
 
 namespace eTINwebAPI_2.Controllers
 {
@@ -58,21 +60,48 @@ namespace eTINwebAPI_2.Controllers
         [HttpGet, Route("TIN/{tin}")]
         public ActionResult GetTin(string tin)
         {
-            TINBL tINBL = new TINBL();
-            var tinInfo = tINBL.GetTinInfo(tin);
-            if (tinInfo != null)
-            {
-                var info = new
+            //using (SqlConnection connection = new SqlConnection(Startup.ConnectionString))
+            //{
+                //connection.Open();
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    tin = tinInfo.NewTin,
-                    AssessName = tinInfo.AssesName
-                };
-                return Ok(info);
-            }
-            TINApiResponse apiResponse = new TINApiResponse();
-            apiResponse.isError = 1;
-            apiResponse.errorDescription = "TIN not found";
-            return Ok(apiResponse);
+                    using (var db = new eTINtestContext())
+                    {
+                        TINBL tINBL = new TINBL();
+                        NbrUsersBL nbrUsersBL = new NbrUsersBL();
+                        var tinInfo = tINBL.GetTinInfo(tin);
+                        var tinInfoObject = new NbrTinInfo();
+                        tinInfoObject = tinInfo;
+                        var userInfoObject = new NbrUsers();
+                        if (tinInfo != null)
+                        {
+                            userInfoObject = nbrUsersBL.GetUserInfo(tinInfo.TinInfoNo);
+                            if(userInfoObject != null)
+                            {
+                                //set TIN_INFO_TRACKER
+                                TinInfoTracker infoTracker = TokenTrackerBL.SetTokenHistory(tinInfoObject, _utility, userInfoObject, db);
+                                db.TinInfoTracker.Add(infoTracker);
+                                db.SaveChanges();
+                            }
+                        scope.Complete();
+                        var info = new
+                            {
+                                tin = tinInfo.NewTin,
+                                AssessName = tinInfo.AssesName
+                            };
+                            return Ok(info);
+                        }
+                        scope.Complete();
+                        TINApiResponse apiResponse = new TINApiResponse();
+                        apiResponse.isError = 1;
+                        apiResponse.errorDescription = "TIN not found";
+                        return Ok(apiResponse);
+
+                        
+                    }
+                }
+               // connection.Close();
+            //}
         }
 
 

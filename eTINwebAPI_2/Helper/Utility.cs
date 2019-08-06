@@ -62,5 +62,12 @@ namespace eTINwebAPI_2.Helper
             }
             return true;
         }
+
+
+        public string GetRequestIpAddress()
+        {
+            string ip = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            return ip;
+        }
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
+using eTINwebAPI_2.Models;
 
 namespace eTINwebAPI_2.Helper
 {
@@ -121,5 +124,28 @@ namespace eTINwebAPI_2.Helper
             UnicodeEncoding byteConverter = new UnicodeEncoding();
             return byteConverter.GetString(decryptedData);
         }
+
+        //public static string GetRequestIpAddress()
+        //{
+        //    //string ipAddr = HttpContext.Features.Get()?.RemoteIpAddress?.ToString();
+        //    //var ip = HttpContext.Connection.RemoteIpAddress;
+        //    //string ip;
+        //    //string ret_ip;
+        //    //ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        //    //if (!string.IsNullOrEmpty(ip))
+        //    //{
+        //    //    string[] ipRange = ip.Split(',');
+        //    //    string trueIP = ipRange[0].Trim();
+        //    //    ret_ip = trueIP;
+        //    //}
+        //    //else
+        //    //{
+        //    //    ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+        //    //    ret_ip = ip;
+        //    //}
+
+            
+        //        return "";
+        //}
     }
 }
