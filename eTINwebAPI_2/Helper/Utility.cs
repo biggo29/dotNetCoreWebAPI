@@ -34,6 +34,19 @@ namespace eTINwebAPI_2.Helper
             return userId;
         }
 
+
+        public long GetAuthNo()
+        {
+            var httphttpContext = _httpContextAccessor.HttpContext;
+            ClaimsIdentity identity = httphttpContext.User.Identity as ClaimsIdentity;
+            string authId = "";
+            if (identity != null)
+            {
+                authId = identity.FindFirst("auth_id").Value;
+            }
+            return long.Parse(authId);
+        }
+
         public bool sendMail(string email, string password, string userId, eTINtestContext db)
         {
             string emailBody = db.GenConfigType.Where(a => a.ConfigTypeNo == 10).FirstOrDefault().StrConfigVal;

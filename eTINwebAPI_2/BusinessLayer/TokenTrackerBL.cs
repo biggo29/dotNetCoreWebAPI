@@ -9,7 +9,7 @@ namespace eTINwebAPI_2.BusinessLayer
 {
     public class TokenTrackerBL
     {
-        public static NbrWebApiTinValidationTracker SetTokenHistory(NbrTinInfo tinInfo, Utility utility, NbrUsers userInfo,eTINtestContext db)
+        public static NbrWebApiTinValidationTracker SetRequestHistory(NbrTinInfo tinInfo, Utility utility, NbrUsers userInfo,eTINtestContext db)
         {
             NbrWebApiTinValidationTracker tinInfoTracker = new NbrWebApiTinValidationTracker();
             tinInfoTracker.NewTin = tinInfo.NewTin;
@@ -20,7 +20,7 @@ namespace eTINwebAPI_2.BusinessLayer
             tinInfoTracker.CircleNo = tinInfo.CircleNo;
             tinInfoTracker.Nid = tinInfo.Nid;
             tinInfoTracker.PassportNumber = tinInfo.PassportNumber;
-            tinInfoTracker.AuthId = 123;
+            tinInfoTracker.AuthId = utility.GetAuthNo();
             tinInfoTracker.InsertTime = DateTime.Now;
             return tinInfoTracker;
             //db.

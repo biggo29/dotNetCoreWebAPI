@@ -129,6 +129,8 @@ namespace eTINwebAPI_2.Models
         public virtual DbSet<WsRequestDetail> WsRequestDetail { get; set; }
         public virtual DbSet<WsRequestMaster> WsRequestMaster { get; set; }
         public virtual DbSet<NbrWebApiTinValidationTracker> NbrWebApiTinValidationTracker { get; set; }
+        public virtual DbSet<NbrWebApiAuthTracker> NbrWebApiAuthTracker { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -6622,6 +6624,30 @@ namespace eTINwebAPI_2.Models
                 entity.Property(e => e.InsertTime)
                     .HasColumnName("INSERT_TIME")
                     .HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<NbrWebApiAuthTracker>(entity =>
+            {
+                entity.HasKey(e => e.AuthId);
+
+                entity.ToTable("NBR_WEB_API_AUTH_TRACKER");
+
+                entity.Property(e => e.AuthId).HasColumnName("AUTH_ID");
+
+                entity.Property(e => e.InsertTime)
+                    .HasColumnName("INSERT_TIME")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ExpireTime)
+                    .HasColumnName("EXPIRE_TIME")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.IpAddr)
+                    .HasColumnName("IP_ADDRESS")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.UserNo)
+                    .HasColumnName("USER_NO");
             });
         }
     }
